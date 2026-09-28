@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>COVID-19 Forecast Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>🌍 COVID-19 Forecasting & Global Spread Dashboard</h1>
+
+    <div class="container">
+
+        <div class="card">
+            <h2>📊 Global COVID-19 Choropleth Map</h2>
+            <div class="plotly-graph">
+                {{ choropleth_html|safe }}
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>📈 30-Day Forecast Plot</h2>
+            <img src="data:image/png;base64,{{ forecast_img }}" alt="Forecast Plot">
+        </div>
+
+    </div>
+</body>
+</html>

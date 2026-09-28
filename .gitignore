@@ -1,0 +1,24 @@
+@"
+env/
+venv/
+.venv/
+
+__pycache__/
+*.pyc
+*.pyo
+
+.vscode/
+.idea/
+
+*.log
+
+.DS_Store
+
+instance/
+uploads/
+
+.env
+.env.*
+
+*.bak
+"@ | Out-File -Encoding utf8 .gitignore

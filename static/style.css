@@ -1,0 +1,577 @@
+/* =========================================================
+   PREMIUM COVID FORECAST DASHBOARD
+   3D + GLASS + FLOATING + INTERACTIVE
+   ========================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+
+    font-family:
+        "Inter",
+        "Segoe UI",
+        Tahoma,
+        Geneva,
+        Verdana,
+        sans-serif;
+
+    color: #eaf2ff;
+
+    background:
+        radial-gradient(
+            circle at 15% 15%,
+            rgba(59, 130, 246, 0.30),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 85% 80%,
+            rgba(139, 92, 246, 0.25),
+            transparent 30%
+        ),
+        linear-gradient(
+            135deg,
+            #07111f 0%,
+            #0b1830 45%,
+            #111b38 100%
+        );
+
+    background-attachment: fixed;
+
+    overflow-x: hidden;
+}
+
+
+/* =========================================================
+   BACKGROUND LIGHT EFFECT
+   ========================================================= */
+
+body::before {
+    content: "";
+
+    position: fixed;
+
+    width: 500px;
+    height: 500px;
+
+    top: -180px;
+    left: -180px;
+
+    border-radius: 50%;
+
+    background: rgba(59, 130, 246, 0.12);
+
+    filter: blur(80px);
+
+    pointer-events: none;
+
+    animation: backgroundFloat 8s ease-in-out infinite;
+}
+
+body::after {
+    content: "";
+
+    position: fixed;
+
+    width: 450px;
+    height: 450px;
+
+    right: -150px;
+    bottom: -150px;
+
+    border-radius: 50%;
+
+    background: rgba(139, 92, 246, 0.12);
+
+    filter: blur(90px);
+
+    pointer-events: none;
+
+    animation: backgroundFloat2 10s ease-in-out infinite;
+}
+
+
+/* =========================================================
+   CONTAINER
+   ========================================================= */
+
+.container {
+    position: relative;
+    z-index: 2;
+
+    width: min(1250px, 94%);
+
+    margin: auto;
+
+    padding: 35px 20px 60px;
+
+    animation: pageEnter 0.9s ease-out;
+}
+
+
+/* =========================================================
+   MAIN TITLE
+   ========================================================= */
+
+h1 {
+    text-align: center;
+
+    margin: 15px 0 50px;
+
+    font-size: clamp(32px, 5vw, 52px);
+
+    font-weight: 800;
+
+    letter-spacing: -1px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #ffffff,
+            #8ab4ff,
+            #c4b5fd,
+            #ffffff
+        );
+
+    background-size: 250% auto;
+
+    -webkit-background-clip: text;
+    background-clip: text;
+
+    color: transparent;
+
+    animation:
+        titleGradient 5s linear infinite,
+        titleFloat 4s ease-in-out infinite;
+
+    filter:
+        drop-shadow(0 8px 25px rgba(59, 130, 246, 0.25));
+}
+
+
+/* =========================================================
+   SECTION TITLE
+   ========================================================= */
+
+h2 {
+    position: relative;
+
+    text-align: center;
+
+    margin: 45px 0 25px;
+
+    font-size: 28px;
+
+    font-weight: 700;
+
+    color: #dce9ff;
+
+    letter-spacing: 0.3px;
+}
+
+h2::after {
+    content: "";
+
+    display: block;
+
+    width: 70px;
+    height: 3px;
+
+    margin: 12px auto 0;
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #60a5fa,
+            #a78bfa
+        );
+
+    box-shadow:
+        0 0 15px rgba(96, 165, 250, 0.5);
+}
+
+
+/* =========================================================
+   PREMIUM 3D CARD
+   ========================================================= */
+
+.card {
+    position: relative;
+
+    padding: 28px;
+
+    margin-bottom: 35px;
+
+    border-radius: 24px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255, 255, 255, 0.12),
+            rgba(255, 255, 255, 0.045)
+        );
+
+    border: 1px solid rgba(255, 255, 255, 0.13);
+
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.28),
+        0 30px 70px rgba(0, 0, 0, 0.18),
+        inset 0 1px 1px rgba(255, 255, 255, 0.12);
+
+    transform:
+        translateY(0)
+        rotateX(0deg)
+        rotateY(0deg);
+
+    transition:
+        transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+        box-shadow 0.45s ease,
+        border-color 0.45s ease,
+        background 0.45s ease;
+
+    overflow: hidden;
+}
+
+
+/* top glass highlight */
+
+.card::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+    right: 0;
+
+    height: 1px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255, 255, 255, 0.7),
+            transparent
+        );
+
+    opacity: 0.7;
+}
+
+
+/* animated shine */
+
+.card::after {
+    content: "";
+
+    position: absolute;
+
+    width: 180px;
+    height: 500px;
+
+    top: -180px;
+    left: -250px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255, 255, 255, 0.08),
+            transparent
+        );
+
+    transform: rotate(25deg);
+
+    transition: left 0.9s ease;
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   3D HOVER
+   ========================================================= */
+
+@media (hover: hover) and (pointer: fine) {
+
+    .card:hover {
+        transform:
+            translateY(-10px)
+            rotateX(1deg)
+            rotateY(-1deg);
+
+        border-color:
+            rgba(96, 165, 250, 0.35);
+
+        background:
+            linear-gradient(
+                145deg,
+                rgba(255, 255, 255, 0.15),
+                rgba(255, 255, 255, 0.055)
+            );
+
+        box-shadow:
+            0 20px 45px rgba(0, 0, 0, 0.35),
+            0 35px 80px rgba(37, 99, 235, 0.16),
+            inset 0 1px 2px rgba(255, 255, 255, 0.16);
+    }
+
+    .card:hover::after {
+        left: 120%;
+    }
+}
+
+
+/* =========================================================
+   PLOTLY WRAPPER
+   ========================================================= */
+
+.plotly-graph {
+    position: relative;
+
+    width: 100%;
+
+    min-height: 450px;
+
+    padding: 8px;
+
+    border-radius: 20px;
+
+    background:
+        rgba(3, 10, 24, 0.45);
+
+    border:
+        1px solid rgba(255, 255, 255, 0.08);
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.06),
+        0 15px 35px rgba(0, 0, 0, 0.25);
+
+    transition:
+        transform 0.4s ease,
+        box-shadow 0.4s ease;
+}
+
+
+/* Plotly itself */
+
+.plotly-graph .plotly,
+.plotly-graph .js-plotly-plot {
+    width: 100% !important;
+}
+
+
+/* =========================================================
+   GRAPH HOVER
+   ========================================================= */
+
+@media (hover: hover) and (pointer: fine) {
+
+    .plotly-graph:hover {
+        transform: translateY(-5px);
+
+        box-shadow:
+            inset 0 1px 0 rgba(255, 255, 255, 0.08),
+            0 22px 50px rgba(0, 0, 0, 0.32),
+            0 0 35px rgba(59, 130, 246, 0.08);
+    }
+}
+
+
+/* =========================================================
+   IMAGES
+   ========================================================= */
+
+img {
+    display: block;
+
+    width: 100%;
+    max-width: 100%;
+
+    height: auto;
+
+    margin: 15px auto;
+
+    border-radius: 18px;
+
+    border:
+        1px solid rgba(255, 255, 255, 0.10);
+
+    box-shadow:
+        0 15px 35px rgba(0, 0, 0, 0.3);
+
+    transition:
+        transform 0.45s ease,
+        box-shadow 0.45s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+
+    img:hover {
+        transform:
+            scale(1.015)
+            translateY(-4px);
+
+        box-shadow:
+            0 22px 45px rgba(0, 0, 0, 0.4);
+    }
+}
+
+
+/* =========================================================
+   SCROLLBAR
+   ========================================================= */
+
+::-webkit-scrollbar {
+    width: 9px;
+}
+
+::-webkit-scrollbar-track {
+    background: #07111f;
+}
+
+::-webkit-scrollbar-thumb {
+    background:
+        linear-gradient(
+            #3b82f6,
+            #8b5cf6
+        );
+
+    border-radius: 20px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background:
+        linear-gradient(
+            #60a5fa,
+            #a78bfa
+        );
+}
+
+
+/* =========================================================
+   ANIMATIONS
+   ========================================================= */
+
+@keyframes pageEnter {
+
+    from {
+        opacity: 0;
+        transform: translateY(35px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+@keyframes titleFloat {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-6px);
+    }
+}
+
+
+@keyframes titleGradient {
+
+    0% {
+        background-position: 0% center;
+    }
+
+    100% {
+        background-position: 250% center;
+    }
+}
+
+
+@keyframes backgroundFloat {
+
+    0%,
+    100% {
+        transform: translate(0, 0);
+    }
+
+    50% {
+        transform: translate(80px, 50px);
+    }
+}
+
+
+@keyframes backgroundFloat2 {
+
+    0%,
+    100% {
+        transform: translate(0, 0);
+    }
+
+    50% {
+        transform: translate(-60px, -40px);
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+    .container {
+        width: 94%;
+        padding: 25px 10px 40px;
+    }
+
+    h1 {
+        font-size: 34px;
+        margin-bottom: 35px;
+    }
+
+    h2 {
+        font-size: 23px;
+    }
+
+    .card {
+        padding: 16px;
+        border-radius: 18px;
+    }
+
+    .plotly-graph {
+        min-height: 350px;
+        padding: 4px;
+    }
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
